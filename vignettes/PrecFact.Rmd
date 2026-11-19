@@ -1,0 +1,61 @@
+---
+title: "Getting started with PrecFact"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with PrecFact}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 6, fig.height = 6)
+```
+
+PrecFact fits the Bayesian precision factor model of Chandra, Müller and Sarkar (2026,
+*Bayesian Analysis* 21(1), 75–103, doi:10.1214/24-BA1461). The precision matrix is written
+as $\Omega = \Lambda\Lambda^T + \Delta$, with a $d \times q$ loading matrix $\Lambda$ and a
+diagonal $\Delta$, and the conditional independence graph is selected by controlling the
+posterior false discovery rate.
+
+This vignette reproduces the simulated example of the original package at a smaller size,
+so that it builds in a few seconds.
+
+```{r}
+library(PrecFact)
+sim <- simulate_precfact(n = 200, d = 40, q = 4, pr = 0.1, val = 2.5, seed = 1)
+```
+
+`precfact()` centres and scales the data, chooses $q$ from a PCA of the data, runs the
+Gibbs sampler and selects the graph. The article runs 5,500 iterations with 1,250 burn-in;
+we use fewer here.
+
+```{r}
+fit <- precfact(sim$y, nrun = 2000, burn = 500, seed = 1, verbose = FALSE)
+fit
+summary(fit, top = 5)
+```
+
+Compare the true and estimated partial correlation matrices.
+
+```{r, fig.height = 4}
+truth <- sim$pcor; diag(truth) <- NA; truth[truth == 0] <- NA
+est <- graph_pcor(fit); diag(est) <- NA; est[est == 0] <- NA
+
+if (requireNamespace("patchwork", quietly = TRUE)) {
+  patchwork::wrap_plots(heatplot(truth, diverging = TRUE) + ggplot2::ggtitle("True"),
+                        heatplot(est, diverging = TRUE) + ggplot2::ggtitle("Estimated"))
+}
+```
+
+The estimated network:
+
+```{r}
+plot_network(fit, title = "Estimated graph")
+```
+
+The posterior FDR across the grid of interval nulls, and a trace of $\log\det\Omega$:
+
+```{r, fig.height = 3}
+fit$fdr_table
+plot_trace(fit)
+```

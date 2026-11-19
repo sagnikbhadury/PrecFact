@@ -1,0 +1,10 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^README\.md$
+^man/figures/.*\.png$
+^tools$
+^\.git$
+^\.gitignore$
+^LICENSE\.md$
+^\.gitattributes$

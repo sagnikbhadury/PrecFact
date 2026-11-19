@@ -1,0 +1,15 @@
+bibentry(
+  bibtype = "Article",
+  title = "Bayesian Scalable Precision Factor Analysis for Gaussian Graphical Models",
+  author = c(person("Noirrit Kiran", "Chandra"), person("Peter", "Müller"),
+             person("Abhra", "Sarkar")),
+  journal = "Bayesian Analysis",
+  year = "2026",
+  volume = "21",
+  number = "1",
+  pages = "75--103",
+  doi = "10.1214/24-BA1461",
+  textVersion = paste("Chandra NK, Müller P, Sarkar A (2026).",
+                      "Bayesian Scalable Precision Factor Analysis for Gaussian Graphical Models.",
+                      "Bayesian Analysis, 21(1), 75-103. doi:10.1214/24-BA1461")
+)

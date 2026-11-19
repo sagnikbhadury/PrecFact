@@ -1,0 +1,45 @@
+Package: PrecFact
+Type: Package
+Title: Bayesian Precision Factor Analysis for Gaussian Graphical Models
+Version: 1.1.0
+Authors@R: c(
+    person("Noirrit Kiran", "Chandra", email = "noirritchandra@gmail.com",
+           role = c("aut", "cph"), comment = "author of the original PrecFact code"),
+    person("Sagnik", "Bhadury", email = "bhadury@upenn.edu", role = c("aut", "cre"),
+           comment = "portable package, post-processing and figures"),
+    person("Josef", "Leydold", role = "ctb", comment = "GIG generator adapted from GIGrvg"),
+    person("Wolfgang", "Hormann", role = "ctb", comment = "GIG generator adapted from GIGrvg"))
+Description: Estimates a high-dimensional Gaussian precision matrix and its
+    conditional independence graph with the precision factor model of Chandra,
+    Mueller and Sarkar (2026) <doi:10.1214/24-BA1461>. The precision matrix is
+    decomposed into a low-rank and a diagonal part, Omega = Lambda Lambda' + Delta,
+    with a Dirichlet-Laplace prior on the loadings and a Dirichlet process prior on
+    the diagonal. A latent variable representation of the decomposition yields a
+    Gibbs sampler that scales to thousands of variables, and edges are selected by
+    controlling the posterior false discovery rate. Includes network and heat map
+    figures, edge and hub tables, and a simulator.
+License: GPL (>= 3)
+URL: https://github.com/sagnikbhadury/PrecFact
+BugReports: https://github.com/sagnikbhadury/PrecFact/issues
+Encoding: UTF-8
+Depends: R (>= 4.1)
+Imports:
+    ggplot2,
+    ggraph,
+    igraph,
+    irlba,
+    Rcpp,
+    stats,
+    utils
+LinkingTo:
+    Rcpp,
+    RcppArmadillo
+Suggests:
+    knitr,
+    patchwork,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.0.0
